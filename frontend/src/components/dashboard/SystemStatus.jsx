@@ -11,19 +11,19 @@ const tools = [
 
 export default function SystemStatus() {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-      <h2 className="text-base font-semibold text-slate-100 mb-6">System Status</h2>
+    <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6">
+      <h2 className="text-base font-semibold text-[var(--foreground)] mb-6">System Status</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {tools.map((tool) => (
           <div
             key={tool}
-            className="flex items-center gap-3 bg-slate-800/40 border border-slate-700/40 rounded-lg px-4 py-3"
+            className="flex items-center gap-3 bg-[var(--muted)] border border-[var(--border)] rounded-lg px-4 py-3"
           >
-            <XCircle className="h-4 w-4 text-slate-600 flex-shrink-0" />
+            <XCircle className="h-4 w-4 text-[var(--muted-foreground)] flex-shrink-0" />
             <div className="min-w-0">
-              <p className="text-sm font-medium text-slate-300">{tool}</p>
-              <p className="text-xs text-slate-600">Not Configured</p>
+              <p className="text-sm font-medium text-[var(--foreground)]">{tool}</p>
+              <p className="text-xs text-[var(--muted-foreground)]">Not Configured</p>
             </div>
           </div>
         ))}

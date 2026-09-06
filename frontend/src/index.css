@@ -1,47 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #F5F8FD;
+  --foreground: #0F172A;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --primary: #0F2C5C;
+  --primary-foreground: #FFFFFF;
+  --secondary: #EAF0FB;
+  --secondary-foreground: #0F2C5C;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #1E40AF;
+  --accent: #F97316;
+  --accent-foreground: #FFFFFF;
+  --success: #059669;
+  --warning: #D97706;
+  --danger: #DC2626;
+  --header-bg: #0F2C5C;
+  --header-fg: #FFFFFF;
+  --chart-grid: #E2E8F0;
+  --surface-hover: #F8FAFC;
+  --radius: 0.875rem;
+}
+
+.dark {
+  --background: #0A1224;
+  --foreground: #E2E8F0;
+  --card: #111E36;
+  --card-foreground: #E2E8F0;
+  --primary: #2E6BFF;
+  --primary-foreground: #FFFFFF;
+  --secondary: #162747;
+  --secondary-foreground: #E2E8F0;
+  --muted: #162033;
+  --muted-foreground: #94A3B8;
+  --border: #1E335C;
+  --input: #1E335C;
+  --ring: #3B82F6;
+  --accent: #FB923C;
+  --accent-foreground: #0A1224;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --header-bg: #0A1224;
+  --header-fg: #E2E8F0;
+  --chart-grid: #1E335C;
+  --surface-hover: #162747;
+}
+
 @layer base {
+  * { @apply border-[var(--border)]; }
+  html { scrollbar-gutter: stable; }
   body {
-    @apply bg-slate-950 text-slate-100;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    @apply antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 9999px; }
+  ::-webkit-scrollbar-track { background: transparent; }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold py-2.5 px-4 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    @apply font-semibold py-2.5 px-4 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md hover:brightness-[1.07] active:brightness-[0.96];
   }
-
   .btn-secondary {
-    @apply bg-slate-700 hover:bg-slate-600 text-slate-200 font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+    border: 1px solid var(--border);
+    @apply font-medium py-2.5 px-4 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:brightness-[0.98];
   }
-
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted-foreground);
+    @apply font-medium py-2 px-3 rounded-xl transition-colors hover:bg-[var(--muted)] hover:text-[var(--foreground)];
+  }
   .btn-danger {
-    @apply bg-red-600 hover:bg-red-500 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-red-600 hover:bg-red-500 text-white font-semibold py-2.5 px-4 rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
   }
-
   .input-field {
-    @apply w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--card-foreground);
+    @apply w-full rounded-xl px-4 py-2.5 placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:border-transparent transition-all duration-200;
   }
-
-  .input-field:disabled {
-    @apply opacity-50 cursor-not-allowed;
-  }
-
-  .input-error {
-    @apply border-red-500 focus:ring-red-500;
-  }
-
+  .input-field:disabled { @apply opacity-50 cursor-not-allowed; }
+  .input-error { @apply border-red-500 focus:ring-red-500; }
   .card {
-    @apply bg-slate-900 border border-slate-800 rounded-xl p-6;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--card-foreground);
+    @apply rounded-2xl p-6 shadow-soft;
+    transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.2s ease, transform 0.2s ease;
   }
-
-  .label {
-    @apply block text-sm font-medium text-slate-300 mb-1.5;
-  }
-
-  .error-text {
-    @apply text-red-400 text-sm mt-1;
-  }
+  .card:hover { @apply shadow-soft-lg; }
+  .card-interactive { @apply hover:-translate-y-[1px] cursor-pointer; }
+  .label { color: var(--muted-foreground); @apply block text-sm font-medium mb-1.5; }
+  .error-text { @apply text-red-500 text-sm mt-1; }
+  .section-title { color: var(--foreground); @apply text-[13px] font-bold uppercase tracking-widest; }
+  .page-title { color: var(--foreground); @apply text-2xl font-bold tracking-tight; }
+  .page-subtitle { color: var(--muted-foreground); @apply text-sm mt-1.5 leading-relaxed; }
+  .badge { @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border; }
 }
+
+/* Theme transition for all surfaces */
+.card, .input-field, header, aside, nav, table, button { transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease; }

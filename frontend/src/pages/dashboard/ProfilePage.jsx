@@ -66,20 +66,20 @@ export default function ProfilePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-100">Profile</h1>
-        <p className="text-slate-400 mt-1">Manage your account settings</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">Profile</h1>
+        <p className="text-[var(--muted-foreground)] mt-1">Manage your account settings</p>
       </div>
 
-      <div className="flex gap-1 bg-slate-900 border border-slate-800 rounded-lg p-1 w-fit">
+      <div className="flex gap-1 bg-[var(--card)] border border-[var(--border)] rounded-lg p-1 w-fit">
         <button
           onClick={() => setActiveTab('profile')}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'profile' ? 'bg-slate-800 text-slate-100' : 'text-slate-400 hover:text-slate-200'}`}
+          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'profile' ? 'bg-[var(--muted)] text-[var(--foreground)]' : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]'}`}
         >
           Profile
         </button>
         <button
           onClick={() => setActiveTab('password')}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'password' ? 'bg-slate-800 text-slate-100' : 'text-slate-400 hover:text-slate-200'}`}
+          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'password' ? 'bg-[var(--muted)] text-[var(--foreground)]' : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]'}`}
         >
           Password
         </button>
@@ -88,8 +88,8 @@ export default function ProfilePage() {
       {activeTab === 'profile' && (
         <div className="card max-w-lg">
           <div className="flex items-center gap-3 mb-6">
-            <UserCircle className="h-5 w-5 text-sky-500" />
-            <h2 className="font-semibold text-slate-100">Personal Information</h2>
+            <UserCircle className="h-5 w-5 text-[var(--primary)]" />
+            <h2 className="font-semibold text-[var(--foreground)]">Personal Information</h2>
           </div>
           <form onSubmit={handleNameUpdate} className="space-y-5">
             <div>
@@ -110,7 +110,7 @@ export default function ProfilePage() {
                 value={user?.email || ''}
                 disabled
               />
-              <p className="text-xs text-slate-500 mt-1">Email cannot be changed</p>
+              <p className="text-xs text-[var(--muted-foreground)] mt-1">Email cannot be changed</p>
             </div>
             <button type="submit" className="btn-primary flex items-center gap-2" disabled={loading}>
               {loading ? <Spinner size="sm" /> : <Save className="h-4 w-4" />}
@@ -123,8 +123,8 @@ export default function ProfilePage() {
       {activeTab === 'password' && (
         <div className="card max-w-lg">
           <div className="flex items-center gap-3 mb-6">
-            <Lock className="h-5 w-5 text-sky-500" />
-            <h2 className="font-semibold text-slate-100">Change Password</h2>
+            <Lock className="h-5 w-5 text-[var(--primary)]" />
+            <h2 className="font-semibold text-[var(--foreground)]">Change Password</h2>
           </div>
           <form onSubmit={handlePasswordChange} className="space-y-5">
             <div>

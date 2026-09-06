@@ -146,8 +146,8 @@ export default function ScansPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Scans</h1>
-          <p className="text-slate-400 mt-1 text-sm">View and manage scan executions.</p>
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">Scans</h1>
+          <p className="text-[var(--muted-foreground)] mt-1 text-sm">View and manage scan executions.</p>
         </div>
         <button onClick={() => setStartOpen(true)} className="btn-primary flex items-center gap-2 text-sm flex-shrink-0">
           <Plus className="h-4 w-4" />
@@ -159,7 +159,7 @@ export default function ScansPage() {
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
           <form onSubmit={handleSearch} className="flex gap-2 flex-1">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]" />
               <input
                 type="text"
                 className="input-field pl-10 text-sm"
@@ -191,23 +191,23 @@ export default function ScansPage() {
         />
 
         {totalPages > 1 && (
-          <div className="flex items-center justify-between mt-6 pt-4 border-t border-slate-800">
-            <p className="text-sm text-slate-500">
+          <div className="flex items-center justify-between mt-6 pt-4 border-t border-[var(--border)]">
+            <p className="text-sm text-[var(--muted-foreground)]">
               Showing {Math.min((page - 1) * perPage + 1, total)}-{Math.min(page * perPage, total)} of {total}
             </p>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="px-3 py-1.5 text-xs rounded-lg border border-slate-700 text-slate-400 hover:text-slate-200 hover:border-slate-600 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className="px-3 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--border)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 Previous
               </button>
-              <span className="text-sm text-slate-500 px-2">Page {page} of {totalPages}</span>
+              <span className="text-sm text-[var(--muted-foreground)] px-2">Page {page} of {totalPages}</span>
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className="px-3 py-1.5 text-xs rounded-lg border border-slate-700 text-slate-400 hover:text-slate-200 hover:border-slate-600 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className="px-3 py-1.5 text-xs rounded-lg border border-[var(--border)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--border)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 Next
               </button>

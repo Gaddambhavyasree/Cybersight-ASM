@@ -11,10 +11,10 @@ export default function DeleteScanConfirm({ isOpen, onClose, onConfirm, scanName
             <AlertTriangle className="h-5 w-5 text-red-400" />
           </div>
           <div>
-            <p className="text-sm text-slate-300">
-              Are you sure you want to delete <span className="font-semibold text-slate-100">{scanName}</span>?
+            <p className="text-sm text-[var(--foreground)]">
+              Are you sure you want to delete <span className="font-semibold text-[var(--foreground)]">{scanName}</span>?
             </p>
-            <p className="text-xs text-slate-500 mt-1">This action cannot be undone.</p>
+            <p className="text-xs text-[var(--muted-foreground)] mt-1">This action cannot be undone.</p>
           </div>
         </div>
         <div className="flex justify-end gap-3 pt-2">

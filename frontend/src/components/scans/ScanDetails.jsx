@@ -3,9 +3,9 @@ import ScanTimeline from './ScanTimeline'
 import { AlertTriangle, Ban, Server } from 'lucide-react'
 
 const STATUS_STYLES = {
-  pending: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+  pending: 'bg-slate-500/10 text-[var(--muted-foreground)] border-slate-500/20',
   queued: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  running: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+  running: 'bg-[var(--primary)] text-[var(--primary)] border-[var(--primary)]',
   completed: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
   failed: 'bg-red-500/10 text-red-400 border-red-500/20',
   cancelled: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
@@ -45,25 +45,25 @@ export default function ScanDetails({ isOpen, onClose, scan }) {
       <div className="space-y-5 max-h-[70vh] overflow-y-auto pr-1">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Scan Name</p>
-            <p className="text-sm text-slate-200 font-medium">{scan.scan_name}</p>
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Scan Name</p>
+            <p className="text-sm text-[var(--foreground)] font-medium">{scan.scan_name}</p>
           </div>
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Project</p>
-            <p className="text-sm text-slate-200">{scan.project_name || '--'}</p>
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Project</p>
+            <p className="text-sm text-[var(--foreground)]">{scan.project_name || '--'}</p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Status</p>
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Status</p>
             <span className={`text-xs font-medium px-2 py-1 rounded-md border ${STATUS_STYLES[scan.status] || STATUS_STYLES.pending}`}>
               {scan.status?.charAt(0).toUpperCase() + scan.status?.slice(1)}
             </span>
           </div>
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Current Stage</p>
-            <p className="text-sm text-sky-400 font-medium">
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Current Stage</p>
+            <p className="text-sm text-[var(--primary)] font-medium">
               {STAGE_LABELS[scan.current_stage] || scan.current_stage}
             </p>
           </div>
@@ -71,49 +71,49 @@ export default function ScanDetails({ isOpen, onClose, scan }) {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Progress</p>
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Progress</p>
             <div className="flex items-center gap-2">
-              <div className="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
+              <div className="flex-1 h-2 bg-[var(--muted)] rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all ${
-                    isFailed ? 'bg-red-500' : isCancelled ? 'bg-amber-500' : 'bg-sky-500'
+                    isFailed ? 'bg-red-500' : isCancelled ? 'bg-amber-500' : 'bg-[var(--primary)]'
                   }`}
                   style={{ width: `${scan.progress}%` }}
                 />
               </div>
-              <span className="text-sm text-slate-300 font-medium">{scan.progress}%</span>
+              <span className="text-sm text-[var(--foreground)] font-medium">{scan.progress}%</span>
             </div>
           </div>
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Initiated By</p>
-            <p className="text-sm text-slate-300">{scan.initiated_by_name || '--'}</p>
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Initiated By</p>
+            <p className="text-sm text-[var(--foreground)]">{scan.initiated_by_name || '--'}</p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Started At</p>
-            <p className="text-sm text-slate-300">{formatDate(scan.started_at)}</p>
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Started At</p>
+            <p className="text-sm text-[var(--foreground)]">{formatDate(scan.started_at)}</p>
           </div>
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Completed At</p>
-            <p className="text-sm text-slate-300">{formatDate(scan.completed_at)}</p>
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Completed At</p>
+            <p className="text-sm text-[var(--foreground)]">{formatDate(scan.completed_at)}</p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Assets Discovered</p>
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Assets Discovered</p>
             <div className="flex items-center gap-2">
-              <Server className="h-4 w-4 text-sky-400" />
-              <span className="text-sm text-slate-200 font-medium">{scan.assets_count || 0}</span>
+              <Server className="h-4 w-4 text-[var(--primary)]" />
+              <span className="text-sm text-[var(--foreground)] font-medium">{scan.assets_count || 0}</span>
             </div>
           </div>
         </div>
 
         {scan.cancelled_at && (
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Cancelled At</p>
+            <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Cancelled At</p>
             <p className="text-sm text-amber-400">{formatDate(scan.cancelled_at)}</p>
           </div>
         )}
@@ -135,7 +135,7 @@ export default function ScanDetails({ isOpen, onClose, scan }) {
                   {isFailed ? 'Scan Failed' : 'Scan Cancelled'}
                 </p>
                 {isFailed && scan.failure_stage && (
-                  <p className="text-xs text-slate-400 mt-1">
+                  <p className="text-xs text-[var(--muted-foreground)] mt-1">
                     Failed at: {STAGE_LABELS[scan.failure_stage] || scan.failure_stage}
                   </p>
                 )}
@@ -148,23 +148,23 @@ export default function ScanDetails({ isOpen, onClose, scan }) {
         )}
 
         <div>
-          <p className="text-xs text-slate-500 uppercase tracking-wider mb-3">Workflow Timeline</p>
+          <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-3">Workflow Timeline</p>
           <ScanTimeline currentStage={scan.current_stage} status={scan.status} />
         </div>
 
         <div>
-          <p className="text-xs text-slate-500 uppercase tracking-wider mb-3">Execution Logs</p>
-          <div className="bg-slate-800/50 rounded-lg border border-slate-700/50 max-h-48 overflow-y-auto">
+          <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-3">Execution Logs</p>
+          <div className="bg-[var(--muted)] rounded-lg border border-[var(--border)] max-h-48 overflow-y-auto">
             {scan.logs?.length > 0 ? (
               <div className="p-3 space-y-1.5">
                 {scan.logs.map((log, i) => (
                   <div key={i} className="flex items-start gap-2 text-xs">
-                    <span className="text-slate-600 font-mono whitespace-nowrap">
+                    <span className="text-[var(--muted-foreground)] font-mono whitespace-nowrap">
                       {new Date(log.timestamp).toLocaleTimeString('en-US', { hour12: false })}
                     </span>
                     <span className={
                       log.level === 'warning' ? 'text-amber-400' :
-                      log.level === 'error' ? 'text-red-400' : 'text-slate-400'
+                      log.level === 'error' ? 'text-red-400' : 'text-[var(--muted-foreground)]'
                     }>
                       {log.message}
                     </span>
@@ -172,12 +172,12 @@ export default function ScanDetails({ isOpen, onClose, scan }) {
                 ))}
               </div>
             ) : (
-              <p className="p-3 text-xs text-slate-600">No logs available.</p>
+              <p className="p-3 text-xs text-[var(--muted-foreground)]">No logs available.</p>
             )}
           </div>
         </div>
 
-        <div className="flex justify-end pt-2 border-t border-slate-800">
+        <div className="flex justify-end pt-2 border-t border-[var(--border)]">
           <button onClick={onClose} className="btn-secondary text-sm">Close</button>
         </div>
       </div>

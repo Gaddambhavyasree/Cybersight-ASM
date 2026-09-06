@@ -3,9 +3,9 @@ import EmptyState from '../ui/EmptyState'
 import { Radar } from 'lucide-react'
 
 const STATUS_STYLES = {
-  pending: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+  pending: 'bg-slate-500/10 text-[var(--muted-foreground)] border-slate-500/20',
   queued: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  running: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+  running: 'bg-[var(--primary)] text-[var(--primary)] border-[var(--primary)]',
   completed: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
   failed: 'bg-red-500/10 text-red-400 border-red-500/20',
   cancelled: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
@@ -37,7 +37,7 @@ export default function ScanTable({ scans, loading, onView, onCancel, onDelete, 
   if (loading) {
     return (
       <div className="flex justify-center py-16">
-        <div className="animate-spin rounded-full h-7 w-7 border-b-2 border-sky-500" />
+        <div className="animate-spin rounded-full h-7 w-7 border-b-2 border-[var(--primary)]" />
       </div>
     )
   }
@@ -61,7 +61,7 @@ export default function ScanTable({ scans, loading, onView, onCancel, onDelete, 
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="text-left text-slate-500 border-b border-slate-800">
+          <tr className="text-left text-[var(--muted-foreground)] border-b border-[var(--border)]">
             <th className="pb-3 font-medium">Scan Name</th>
             <th className="pb-3 font-medium">Project</th>
             <th className="pb-3 font-medium">Current Stage</th>
@@ -74,14 +74,14 @@ export default function ScanTable({ scans, loading, onView, onCancel, onDelete, 
         </thead>
         <tbody className="divide-y divide-slate-800/60">
           {scans.map((scan) => (
-            <tr key={scan.id} className="hover:bg-slate-800/20 transition-colors">
+            <tr key={scan.id} className="hover:bg-[var(--muted)] transition-colors">
               <td className="py-3.5">
-                <p className="font-medium text-slate-200">{scan.scan_name}</p>
+                <p className="font-medium text-[var(--foreground)]">{scan.scan_name}</p>
               </td>
-              <td className="py-3.5 text-slate-400 text-xs">{scan.project_name || '--'}</td>
+              <td className="py-3.5 text-[var(--muted-foreground)] text-xs">{scan.project_name || '--'}</td>
               <td className="py-3.5">
                 {scan.status === 'running' || scan.status === 'queued' ? (
-                  <span className="text-xs text-sky-400 font-medium">
+                  <span className="text-xs text-[var(--primary)] font-medium">
                     {STAGE_LABELS[scan.current_stage] || scan.current_stage}
                   </span>
                 ) : scan.status === 'failed' && scan.failure_stage ? (
@@ -91,7 +91,7 @@ export default function ScanTable({ scans, loading, onView, onCancel, onDelete, 
                 ) : scan.status === 'completed' ? (
                   <span className="text-xs text-emerald-400 font-medium">Completed</span>
                 ) : (
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-[var(--muted-foreground)]">
                     {STAGE_LABELS[scan.current_stage] || scan.current_stage}
                   </span>
                 )}
@@ -103,31 +103,31 @@ export default function ScanTable({ scans, loading, onView, onCancel, onDelete, 
               </td>
               <td className="py-3.5">
                 <div className="flex items-center gap-1.5">
-                  <Server className="h-3.5 w-3.5 text-slate-500" />
-                  <span className="text-xs text-slate-400">{scan.assets_count || 0}</span>
+                  <Server className="h-3.5 w-3.5 text-[var(--muted-foreground)]" />
+                  <span className="text-xs text-[var(--muted-foreground)]">{scan.assets_count || 0}</span>
                 </div>
               </td>
               <td className="py-3.5">
                 <div className="flex items-center gap-2">
-                  <div className="w-20 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="w-20 h-1.5 bg-[var(--muted)] rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all ${
                         scan.status === 'failed' ? 'bg-red-500' :
                         scan.status === 'cancelled' ? 'bg-amber-500' :
-                        'bg-sky-500'
+                        'bg-[var(--primary)]'
                       }`}
                       style={{ width: `${scan.progress}%` }}
                     />
                   </div>
-                  <span className="text-xs text-slate-500">{scan.progress}%</span>
+                  <span className="text-xs text-[var(--muted-foreground)]">{scan.progress}%</span>
                 </div>
               </td>
-              <td className="py-3.5 text-slate-500 text-xs">{formatDate(scan.created_at)}</td>
+              <td className="py-3.5 text-[var(--muted-foreground)] text-xs">{formatDate(scan.created_at)}</td>
               <td className="py-3.5">
                 <div className="flex items-center justify-end gap-1">
                   <button
                     onClick={() => onView(scan)}
-                    className="p-1.5 rounded-md text-slate-500 hover:text-sky-400 hover:bg-slate-800 transition-colors"
+                    className="p-1.5 rounded-md text-[var(--muted-foreground)] hover:text-[var(--primary)] hover:bg-[var(--muted)] transition-colors"
                     title="View Details"
                   >
                     <Eye className="h-4 w-4" />
@@ -135,7 +135,7 @@ export default function ScanTable({ scans, loading, onView, onCancel, onDelete, 
                   {['pending', 'queued', 'running'].includes(scan.status) && (
                     <button
                       onClick={() => onCancel(scan)}
-                      className="p-1.5 rounded-md text-slate-500 hover:text-amber-400 hover:bg-slate-800 transition-colors"
+                      className="p-1.5 rounded-md text-[var(--muted-foreground)] hover:text-amber-400 hover:bg-[var(--muted)] transition-colors"
                       title="Cancel Scan"
                     >
                       <Square className="h-4 w-4" />
@@ -144,7 +144,7 @@ export default function ScanTable({ scans, loading, onView, onCancel, onDelete, 
                   {['completed', 'failed', 'cancelled'].includes(scan.status) && (
                     <button
                       onClick={() => onDelete(scan)}
-                      className="p-1.5 rounded-md text-slate-500 hover:text-red-400 hover:bg-slate-800 transition-colors"
+                      className="p-1.5 rounded-md text-[var(--muted-foreground)] hover:text-red-400 hover:bg-[var(--muted)] transition-colors"
                       title="Delete"
                     >
                       <Trash2 className="h-4 w-4" />

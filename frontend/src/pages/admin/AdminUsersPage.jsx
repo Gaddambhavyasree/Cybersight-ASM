@@ -15,9 +15,9 @@ const ROLES = [
 
 const ROLE_BADGE = {
   admin: 'bg-red-500/10 text-red-400 border-red-500/20',
-  threat_analyst: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+  threat_analyst: 'bg-[var(--primary)] text-[var(--primary)] border-[var(--primary)]',
   soc_analyst: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  viewer: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+  viewer: 'bg-slate-500/10 text-[var(--muted-foreground)] border-slate-500/20',
 }
 
 export default function AdminUsersPage() {
@@ -102,14 +102,14 @@ export default function AdminUsersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-100">User Management</h1>
-        <p className="text-slate-400 mt-1">Manage users and their roles</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">User Management</h1>
+        <p className="text-[var(--muted-foreground)] mt-1">Manage users and their roles</p>
       </div>
 
       <div className="card">
         <form onSubmit={handleSearch} className="flex gap-3 mb-6">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]" />
             <input
               type="text"
               className="input-field pl-10"
@@ -123,7 +123,7 @@ export default function AdminUsersPage() {
 
         {loading ? (
           <div className="flex justify-center py-12">
-            <Spinner size="lg" className="text-sky-500" />
+            <Spinner size="lg" className="text-[var(--primary)]" />
           </div>
         ) : users.length === 0 ? (
           <EmptyState
@@ -136,7 +136,7 @@ export default function AdminUsersPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-slate-500 border-b border-slate-800">
+                  <tr className="text-left text-[var(--muted-foreground)] border-b border-[var(--border)]">
                     <th className="pb-3 font-medium">User</th>
                     <th className="pb-3 font-medium">Role</th>
                     <th className="pb-3 font-medium">Status</th>
@@ -146,11 +146,11 @@ export default function AdminUsersPage() {
                 </thead>
                 <tbody className="divide-y divide-slate-800">
                   {users.map((u) => (
-                    <tr key={u.id} className="hover:bg-slate-800/30">
+                    <tr key={u.id} className="hover:bg-[var(--muted)]">
                       <td className="py-3">
                         <div>
-                          <p className="font-medium text-slate-200">{u.full_name}</p>
-                          <p className="text-xs text-slate-500">{u.email}</p>
+                          <p className="font-medium text-[var(--foreground)]">{u.full_name}</p>
+                          <p className="text-xs text-[var(--muted-foreground)]">{u.email}</p>
                         </div>
                       </td>
                       <td className="py-3">
@@ -172,19 +172,19 @@ export default function AdminUsersPage() {
                         <div className="flex items-center justify-end gap-2">
                           <button
                             onClick={() => setRoleModal(u)}
-                            className="text-xs text-slate-400 hover:text-sky-400 px-2 py-1 rounded hover:bg-slate-800 transition-colors"
+                            className="text-xs text-[var(--muted-foreground)] hover:text-[var(--primary)] px-2 py-1 rounded hover:bg-[var(--muted)] transition-colors"
                           >
                             Role
                           </button>
                           <button
                             onClick={() => handleToggleActive(u.id, !u.is_active)}
-                            className={`text-xs px-2 py-1 rounded transition-colors ${u.is_active ? 'text-amber-400 hover:bg-slate-800' : 'text-green-400 hover:bg-slate-800'}`}
+                            className={`text-xs px-2 py-1 rounded transition-colors ${u.is_active ? 'text-amber-400 hover:bg-[var(--muted)]' : 'text-green-400 hover:bg-[var(--muted)]'}`}
                           >
                             {u.is_active ? 'Deactivate' : 'Activate'}
                           </button>
                           <button
                             onClick={() => setDeleteModal(u)}
-                            className="text-xs text-red-400 hover:bg-slate-800 px-2 py-1 rounded transition-colors"
+                            className="text-xs text-red-400 hover:bg-[var(--muted)] px-2 py-1 rounded transition-colors"
                           >
                             Delete
                           </button>
@@ -197,23 +197,23 @@ export default function AdminUsersPage() {
             </div>
 
             {totalPages > 1 && (
-              <div className="flex items-center justify-between mt-6 pt-4 border-t border-slate-800">
-                <p className="text-sm text-slate-500">
+              <div className="flex items-center justify-between mt-6 pt-4 border-t border-[var(--border)]">
+                <p className="text-sm text-[var(--muted-foreground)]">
                   Showing {(page - 1) * perPage + 1}-{Math.min(page * perPage, total)} of {total}
                 </p>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setPage(p => Math.max(1, p - 1))}
                     disabled={page === 1}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="p-1.5 rounded-lg text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] disabled:opacity-30 disabled:cursor-not-allowed"
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </button>
-                  <span className="text-sm text-slate-400">Page {page} of {totalPages}</span>
+                  <span className="text-sm text-[var(--muted-foreground)]">Page {page} of {totalPages}</span>
                   <button
                     onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                     disabled={page === totalPages}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="p-1.5 rounded-lg text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] disabled:opacity-30 disabled:cursor-not-allowed"
                   >
                     <ChevronRight className="h-4 w-4" />
                   </button>
@@ -228,8 +228,8 @@ export default function AdminUsersPage() {
       <Modal isOpen={!!roleModal} onClose={() => setRoleModal(null)} title="Change User Role">
         {roleModal && (
           <div className="space-y-4">
-            <p className="text-sm text-slate-400">
-              Change role for <span className="text-slate-200 font-medium">{roleModal.full_name}</span>
+            <p className="text-sm text-[var(--muted-foreground)]">
+              Change role for <span className="text-[var(--foreground)] font-medium">{roleModal.full_name}</span>
             </p>
             <div className="space-y-2">
               {ROLES.map((role) => (
@@ -239,13 +239,13 @@ export default function AdminUsersPage() {
                   disabled={actionLoading || roleModal.role === role.value}
                   className={`w-full text-left px-4 py-3 rounded-lg border transition-colors ${
                     roleModal.role === role.value
-                      ? 'border-sky-500 bg-sky-500/10 text-sky-400'
-                      : 'border-slate-700 hover:border-slate-600 text-slate-300 hover:bg-slate-800'
+                      ? 'border-[var(--primary)] bg-[var(--primary)] text-[var(--primary)]'
+                      : 'border-[var(--border)] hover:border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--muted)]'
                   } disabled:opacity-50`}
                 >
                   <span className="font-medium text-sm">{role.label}</span>
                   {roleModal.role === role.value && (
-                    <span className="text-xs text-sky-400 ml-2">(current)</span>
+                    <span className="text-xs text-[var(--primary)] ml-2">(current)</span>
                   )}
                 </button>
               ))}
@@ -258,8 +258,8 @@ export default function AdminUsersPage() {
       <Modal isOpen={!!deleteModal} onClose={() => setDeleteModal(null)} title="Delete User">
         {deleteModal && (
           <div className="space-y-4">
-            <p className="text-sm text-slate-400">
-              Are you sure you want to delete <span className="text-slate-200 font-medium">{deleteModal.full_name}</span>?
+            <p className="text-sm text-[var(--muted-foreground)]">
+              Are you sure you want to delete <span className="text-[var(--foreground)] font-medium">{deleteModal.full_name}</span>?
               This action cannot be undone.
             </p>
             <div className="flex gap-3 justify-end">

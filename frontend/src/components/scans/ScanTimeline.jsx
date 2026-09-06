@@ -66,15 +66,15 @@ export default function ScanTimeline({ currentStage, status }) {
           IconComponent = Ban
           iconColor = 'text-amber-400'
         } else if (isCurrent) {
-          iconBg = 'bg-sky-500/20'
-          iconBorder = 'border-sky-500/40'
+          iconBg = 'bg-[var(--primary)]'
+          iconBorder = 'border-[var(--primary)]'
           IconComponent = Clock
-          iconColor = 'text-sky-400'
+          iconColor = 'text-[var(--primary)]'
         } else {
-          iconBg = 'bg-slate-800'
-          iconBorder = 'border-slate-700'
+          iconBg = 'bg-[var(--muted)]'
+          iconBorder = 'border-[var(--border)]'
           IconComponent = Circle
-          iconColor = 'text-slate-600'
+          iconColor = 'text-[var(--muted-foreground)]'
         }
 
         return (
@@ -86,8 +86,8 @@ export default function ScanTimeline({ currentStage, status }) {
               {i < STAGES.length - 1 && (
                 <div className={`w-px h-6 ${
                   isCompleted ? 'bg-emerald-500/40' :
-                  isSkipped ? 'bg-slate-700/30' :
-                  'bg-slate-700/60'
+                  isSkipped ? 'bg-[var(--muted)]' :
+                  'bg-[var(--muted)]'
                 }`} />
               )}
             </div>
@@ -96,14 +96,14 @@ export default function ScanTimeline({ currentStage, status }) {
                 isCompleted ? 'text-emerald-400' :
                 isFailedStage ? 'text-red-400' :
                 isCancelledStage ? 'text-amber-400' :
-                isCurrent ? 'text-sky-400' :
+                isCurrent ? 'text-[var(--primary)]' :
                 isSkipped ? 'text-slate-700' :
-                'text-slate-600'
+                'text-[var(--muted-foreground)]'
               }`}>
                 {stage}
               </p>
               {isCurrent && (
-                <p className="text-xs text-sky-500/70 mt-0.5">Current stage</p>
+                <p className="text-xs text-[var(--primary)]/70 mt-0.5">Current stage</p>
               )}
               {isCompleted && (
                 <p className="text-xs text-emerald-500/50 mt-0.5">Completed</p>
