@@ -1,0 +1,31 @@
+id: cybersight-exposed-dotenv-file
+
+info:
+  name: Exposed .env / Environment File
+  author: CyberSight ASM
+  severity: critical
+  description: |
+    A .env style configuration file (or its backup) is publicly readable. These files
+    commonly contain database credentials, cloud access keys, JWT secrets and SMTP
+    credentials that allow direct takeover of the application.
+  remediation: Never ship .env files to the web root. Move secrets to a vault, delete the file, rotate every credential it contained.
+  classification:
+    cwe-id: CWE-538
+  tags: exposure,misconfig,secrets
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.env"
+      - "{{BaseURL}}/.env.bak"
+      - "{{BaseURL}}/.env.local"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: regex
+        part: body
+        regex:
+          - "(?m)^\\s*(APP_KEY|SECRET_KEY|DB_PASSWORD|AWS_SECRET_ACCESS_KEY|API_KEY|JWT_SECRET)[A-Z_]*\\s*="
+          - "(?m)^\\s*[A-Z_]+\\s*=\\s*['\"]?[A-Za-z0-9/+_-]{8,}['\"]?"

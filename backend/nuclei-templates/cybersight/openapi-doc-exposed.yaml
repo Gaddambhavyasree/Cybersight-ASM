@@ -1,0 +1,33 @@
+id: cybersight-openapi-doc-exposed
+
+info:
+  name: OpenAPI / Swagger Documentation Exposed
+  author: CyberSight ASM
+  severity: low
+  description: |
+    API documentation (OpenAPI or Swagger) is reachable without authentication.
+    While not directly exploitable, it fast-tracks attackers by enumerating every
+    internal endpoint, parameter and data model.
+  remediation: Restrict API docs to internal networks or require authentication in production.
+  classification:
+    cwe-id: CWE-200
+  tags: exposure,misconfig,api
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/openapi.json"
+      - "{{BaseURL}}/swagger.json"
+      - "{{BaseURL}}/v3/api-docs"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        part: body
+        words:
+          - '"openapi"'
+          - '"swagger"'
+          - '"apiVersion"'
+        condition: or

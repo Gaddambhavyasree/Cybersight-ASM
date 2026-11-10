@@ -1,0 +1,32 @@
+id: cybersight-spring-actuator-exposed
+
+info:
+  name: Spring Boot Actuator Endpoints Exposed
+  author: CyberSight ASM
+  severity: high
+  description: |
+    Spring Boot actuator endpoints are exposed without authentication. /actuator/env
+    leaks configuration values (often including plaintext secrets) and
+    /actuator/heapdump can be downloaded to extract in-memory credentials.
+  remediation: Require authentication on actuator endpoints or restrict exposure to the management interface only.
+  classification:
+    cwe-id: CWE-200
+  tags: exposure,misconfig,java
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/actuator/env"
+      - "{{BaseURL}}/actuator/heapdump"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        part: body
+        words:
+          - '"activeProfiles"'
+          - "Mem_dump"
+          - '"BeanFactory"'
+        condition: or

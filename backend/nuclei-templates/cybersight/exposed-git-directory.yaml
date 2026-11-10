@@ -1,0 +1,28 @@
+id: cybersight-exposed-git-directory
+
+info:
+  name: Exposed Git Directory
+  author: CyberSight ASM
+  severity: high
+  description: |
+    The .git/HEAD file is publicly accessible over HTTP. Attackers can reconstruct
+    the entire repository (source code, history, and embedded secrets) using tools
+    such as git-dumper, which frequently leads to full account and infrastructure compromise.
+  remediation: Block web access to .git/ directories (deny rule or delete the folder from the web root) and redeploy sources via CI pipelines only.
+  classification:
+    cwe-id: CWE-538
+  tags: exposure,misconfig,git
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.git/HEAD"
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        part: body
+        words:
+          - "ref: refs/"
