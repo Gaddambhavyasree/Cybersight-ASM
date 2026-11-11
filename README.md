@@ -1,4 +1,4 @@
-# CyberSight ASM - Authentication & Authorization Module
+# CyberSight ASM 
 
 Attack Surface Management platform to automate external asset discovery, service fingerprinting,
 vulnerability identification, technology detection, and security reporting.
